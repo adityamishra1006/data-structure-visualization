@@ -1,0 +1,51 @@
+.stack-visualizer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.controls input {
+  padding: 10px;
+  font-size: 16px;
+  margin-right: 10px;
+  width: 100px;
+}
+
+.controls button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.stack-container {
+  display: flex;
+  flex-direction: column-reverse; /* Display the stack in reverse so the first item is at the bottom */
+  align-items: center;
+  border: 2px solid #000;
+  width: 150px;
+  height: 300px;
+  margin-top: 20px;
+  position: relative;
+}
+
+.stack-item {
+  width: 100%;
+  height: 30px;
+  background-color: #3498db;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  margin-top: 5px;
+  border-radius: 4px;
+}
