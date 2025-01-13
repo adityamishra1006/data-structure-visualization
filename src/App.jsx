@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 // import './App.css';
+import './index.css';
 import ArrayVisualizer from './components/ArrayVisualizer/ArrayVisualizer';
 import StackVisualizer from './components/StackVisualizer/StackVisualizer';
 import QueueVisualizer from './components/QueueVisualizer/QueueVisualizer';
