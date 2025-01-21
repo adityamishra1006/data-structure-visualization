@@ -8,6 +8,7 @@ const StackVisualizer = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isAnimating, setIsAnimating] = useState(false);
   const [speed, setSpeed] = useState(500);
+  const [history, setHistory] = useState([]);
 
   const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -23,6 +24,7 @@ const StackVisualizer = () => {
     }
     setIsAnimating(true);
     const newValue = Number(inputValue);
+    setHistory(prev => [...prev, [...stack]]); // Save current state for undo
     setStack(prev => [...prev, newValue]);
     setActiveIndex(stack.length);
     await sleep(speed);
@@ -39,21 +41,16 @@ const StackVisualizer = () => {
     setIsAnimating(true);
     setActiveIndex(stack.length - 1);
     await sleep(speed);
+    setHistory(prev => [...prev, [...stack]]); // Save current state for undo
     setStack(prev => prev.slice(0, -1));
     setActiveIndex(-1);
     setIsAnimating(false);
   };
 
-  const handlePeek = async () => {
-    if (stack.length === 0) {
-      setError('Stack is empty! Nothing to peek.');
-      return;
-    }
-    setIsAnimating(true);
-    setActiveIndex(stack.length - 1);
-    await sleep(speed);
-    setActiveIndex(-1);
-    setIsAnimating(false);
+  const handleUndo = () => {
+    if (history.length === 0) return;
+    setStack(history[history.length - 1]);
+    setHistory(prev => prev.slice(0, -1)); // Remove last state from history
   };
 
   const handleClear = () => {
@@ -71,10 +68,10 @@ const StackVisualizer = () => {
           onChange={handleInputChange}
           disabled={isAnimating}
         />
-        <button onClick={handlePush} disabled={isAnimating}>Push</button>
-        <button onClick={handlePop} disabled={isAnimating}>Pop</button>
-        <button onClick={handlePeek} disabled={isAnimating}>Peek</button>
-        <button onClick={handleClear} disabled={isAnimating}>Clear</button>
+        <button onClick={handlePush} disabled={isAnimating} title="Add an item to the stack">Push</button>
+        <button onClick={handlePop} disabled={isAnimating} title="Remove the top item from the stack">Pop</button>
+        <button onClick={handleUndo} disabled={isAnimating || history.length === 0} title="Undo the last operation">Undo</button>
+        <button onClick={handleClear} disabled={isAnimating} title="Clear the stack">Clear</button>
         <div className="speed-control">
           <input
             type="range"
