@@ -54,8 +54,10 @@ const StackVisualizer = () => {
   };
 
   const handleClear = () => {
-    setStack([]);
-    setError('');
+    if (window.confirm("Are you sure you want to clear the stack?")) {
+      setStack([]);
+      setError('');
+    }
   };
 
   return (
@@ -67,6 +69,7 @@ const StackVisualizer = () => {
           placeholder="Enter a number"
           onChange={handleInputChange}
           disabled={isAnimating}
+          title="Enter a number to push onto the stack"
         />
         <button onClick={handlePush} disabled={isAnimating} title="Add an item to the stack">Push</button>
         <button onClick={handlePop} disabled={isAnimating} title="Remove the top item from the stack">Pop</button>
